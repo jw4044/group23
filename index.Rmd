@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "GR5702 Final Project G23"
+author: "Jinyu Wang and Shuai Yuan"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
