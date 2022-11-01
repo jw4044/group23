@@ -1,64 +1,37 @@
-This is a template for the EDAV final project. It is based on the template created with *File, New Project..., New Directory, Book Project using bookdown* in RStudio. 
+Research topic: Discover the relationship between the Federal Funds Effective Rate（also known as US interest rate), the private sector lending and borrowing amount, M2, consumer loans and CPI, range from 2005 to 2022.
 
+The Federal Funds Effective Rate is a worldwide focused economic indicator. The increase of the the US interest rate may lead to the inflow of capital into the US, therefore foreign countries monitor and forcast the movements of the US Federal Funds rate in order to be prepared for inflow and outflow of capital in their own countries in order to stabilize their economy. We listed a few US economic factors that may have relationship and impact on the Federal Funds Rate, the FED makes decision based on domestic and foreign factors, our project is to discover possible domestic factors that contribute to the decision making of the FED.
 
-## ABSOLUTE ESSENTIALS
+Our data is from Federal Reserve Bank of St. Louis's economics research database: <https://fred.stlouisfed.org/>, we will provide detailed data source below for each parameter.
 
-*If you have any difficulties or have feedback of any kind, please file an issue or communicate through [Discussions](https://github.com/jtr13/EDAVtemplate/discussions).*
+**Federal Funds Effective Rate**: <https://fred.stlouisfed.org/series/DFF>:
 
-### Copy this template
+Description: the Federal Funds Effective Rate is the interest rate at which depository institution trade federal funds(balances held at Federal Reserve Banks) with each other overnight. When a depository institution has surplus balances in its reserve account, it lends to other banks in need of larger balances. In simpler terms, a bank with excess cash, which is often referred to as liquidity, will lend to another bank that needs to quickly raise liquidity. The rate that the borrowing institution pays to the lending institution is determined between the two banks; the weighted average rate for all of these types of negotiations is called the effective federal funds rate. The effective federal funds rate is essentially determined by the market but is influenced by the Federal Reserve through open market operations to reach the federal funds rate target.
 
-- [ ] 1. Click the green "Use this template" button above.  DO NOT FORK THE REPO. Choose a descriptive name for your repo, such as "federalbudget" or "AIDSdeaths".  (If you change your mind before you do any work, delete your new repo and start over.)
+The Federal Open Market Committee (FOMC) meets eight times a year to determine the federal funds target rate.
 
-- [ ] 2. In the Description field, write: "Bookdown source files for EDAV final project".
+The data is collected on a 7-day frequency and not seasonally adjusted. The data is percent number, and we are preparing to import csv data downloaded from the link.
 
-### Set up GitHub Pages	
-- [ ] 1. On the home page of your repo, click Settings. Click the "Pages" section on the left. Change **Source** from **None** to **main**, change **/ (root)** to **/docs** folder, and click Save. Above the **Source** line, a bar will appear with your book's URL. The bar will initially be blue and indicate that your book is *ready* to be published and will change to green once it is published. Copy the URL. (Note that sometimes there is a delay until your book actually appears at that URL. If it doesn't appear after a few minutes, make a change and commit it to trigger a GitHub Pages build.)	
+**Net Lending or net borrowing, Private**: <https://fred.stlouisfed.org/series/W994RC1Q027SBEA>
 
-- [ ] 2. Click the gear button near "About" on the home page of the repo and paste your book URL into the **Website** field that appears on the right.
+Description: the private sector net lending or borrowing data represent the market's demanding for money, it is also an indicator of the market's activity level. When lending and borrowing are increasing, usually it means the economy is in a good trend, on the other hand, when the data decreases, it reflects some kind of recession.
 
-### Clone the repo
+The data is collected quarterly by the Fed, The fed collects and monitors activity from commercial banks and other financial institutions and report with units of billions of dollars. we are preparing to import csv data downloaded from the link.
 
-- [ ] 1. Clone your new repo with *File, New Project..., Version Control, Git* in RStudio.
+**M2**: <https://fred.stlouisfed.org/series/WM2NS>
 
-### Edit some key files
+Description: M2 consists of M1 plus small-denomination time deposits (time deposits in amounts of less than \$100,000) less IRA and Keogh balances at depository institutions; and balances in retail MMFs less IRA and Keogh balances at MMFs. Seasonally adjusted M2 is constructed by summing savings deposits (before May 2020), small-denomination time deposits, and retail MMFs, each seasonally adjusted separately, and adding this result to seasonally adjusted M1.
 
-- [ ] 1. In `index.Rmd`, change YOUR TITLE HERE to your title.
+The data is collected by the Fed, the board of governors releases M2 data in its H.6 Statistical Release. The data is collected weekly, with billions of dollars as the unit, we are preparing to import csv data downloaded from the link.
 
-- [ ] 2. In `index.Rmd`, change YOUR NAMES HERE to your names.
+**Consumer Loans**: <https://fred.stlouisfed.org/series/CCLACBW027SBOG>
 
-- [ ] 3. In `_bookdown.yml`, change YOUR GITHUB USERNAME to your GitHub username in the two places it appears.
+Description: The consumer loans, credit cards and other revolving plans, all commercial banks provide information on the total loan demands in the market, it shows similar function as **Net Lending or net borrowing**, which reflects market's activity.
 
-- [ ] 4. In `_bookdown.yml`, change YOUR GITHUB REPO to your GitHub repo name in the two places it appears.
+The data is collected by the Fed and board of governors releases the data on weekly basis. The data has unit of billions of dollars and we are preparing to import csv data downloaded from the link.
 
-(Note that 3. and 4. provide links to the `.Rmd` files of your project for editing and viewing. If you move your `.Rmd` files you will need to update these file paths. Once your book is rendered, test that the edit (pen) and view (eye) buttons work.)
+**CPI**: <https://fred.stlouisfed.org/series/MEDCPIM158SFRBCLE>
 
-- [ ] 5. In `_output.yml`, change YOUR SHORT TITLE to a shortened version of your title. (Leave the "after:" line indicating that the book was published with bookdown as is.)
+Description: Median Consumer Price Index (CPI) is a measure of core inflation calculated the Federal Reserve Bank of Cleveland and the Ohio State University. Median CPI was created as a different way to get a 'Core CPI' measure, or a better measure of underlying inflation trends. To calculate the Median CPI, the Cleveland Fed analyzes the median price change of the goods and services published by the BLS. The median price change is the price change that's right in the middle of the long list of all of the price changes. This series excludes 49.5% of the CPI components with the highest and lowest one-month price changes from each tail of the price-change distribution resulting in a Median CPI Inflation Estimate.
 
-### Render the book
-
-- [ ] 1. Install **bookdown** with `install.packages("bookdown")`. If you already have it, update to the most recent version.
-
-- [ ] 2. Render locally with `bookdown::render_book("index.Rmd")` or clicking the *Build book* button which should appear in the Build tab (in the same pane as Environment, History, Connections, ...).
-
-- [ ] 3. Use `browseURL("docs/index.html")` to view your book locally (or just open `index.html` in a browser).
-
-- [ ] 4. If it looks good, commit and push all changed files to GitHub. 
-
-(You will need to repeat steps 2 and 4 every time you wish to update the book online.)
-
-### Edit README	
-
-Once you've completed these steps, delete the content of this **README** and add a short description of your project with a link to the book URL. It would be appreciated if you add the following to the end:	
-
-*This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.*	
-
-### Demo Video	
-
-A demo video showing how to create a **bookdown book** following these similar instructions: http://bit.ly/fiveminutebookdown Note that this video uses a different template.
-
-### Additional features	
-
-Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
-
-
-
+The data is collected by the Federal reserve bank on a monthly basis. The unit is the percent change at annual rate, therefore the data is a percent number. We are preparing to import csv data downloaded from the link.
