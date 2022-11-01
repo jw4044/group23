@@ -6,4 +6,4 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
-
+Discover the relationship between the Federal Funds Effective Rate（also known as the US interest rate), the private sector lending and borrowing amount, M2, consumer loans, and CPI, ranging from 2005 to 2022.

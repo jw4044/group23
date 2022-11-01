@@ -37,6 +37,8 @@ CPI: https://fred.stlouisfed.org/series/MEDCPIM158SFRBCLE
 Description: Median Consumer Price Index (CPI) is a measure of core inflation calculated by the Federal Reserve Bank of Cleveland and the Ohio State University. Median CPI was created as a different way to get a 'Core CPI' measure or a better measure of underlying inflation trends. To calculate the Median CPI, the Cleveland Fed analyzes the median price change of the goods and services published by the BLS. The median price change is the price change that's right in the middle of the long list of all of the price changes. This series excludes 49.5% of the CPI components with the highest and lowest one-month price changes from each tail of the price-change distribution resulting in a Median CPI Inflation Estimate.
 
 The data is collected by the Federal reserve bank on a monthly basis. The unit is the percent change at an annual rate, therefore the data is a percent number. We are preparing to import CSV data downloaded from the link.
+
+
 ## Data availability
 https://fred.stlouisfed.org/
 https://fred.stlouisfed.org/series/DFF
