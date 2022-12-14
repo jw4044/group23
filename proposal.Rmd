@@ -1,7 +1,7 @@
 # Proposal
 
 ## Research topic
-Discover the relationship between the Federal Funds Effective Rate（also known as the US interest rate), the private sector lending and borrowing amount, M2, consumer loans, and CPI, ranging from 2005 to 2022.
+Discover the relationship between the Federal Funds Effective Rate（also known as the US interest rate), the private sector lending and borrowing amount, M2, overnight repo rate, and CPI, ranging from 2017 to 2022.
 The Federal Funds Effective Rate is a worldwide focused economic indicator. The increase of the US interest rate may lead to the inflow of capital into the US, therefore foreign countries monitor and forecast the movements of the US Federal Funds rate in order to be prepared for the inflow and outflow of capital in their own countries in order stabilize their economy. We listed a few US economic factors that may have a relationship and impact on the Federal Funds Rate, the FED makes decisions based on domestic and foreign factors, and our project is to discover possible domestic factors that contribute to the decision-making of the FED.
 
 Our data is from the Federal Reserve Bank of St. Louis's economics research database:https://fred.stlouisfed.org/, we will provide detailed data sources below for each parameter.
@@ -26,11 +26,12 @@ Description: M2 consists of M1 plus small-denomination time deposits (time depos
 
 The data is collected by the Fed, and the board of governors releases M2 data in its H.6 Statistical Release. The data is collected weekly, with billions of dollars as the unit, we are preparing to import CSV data downloaded from the link.
 
-Consumer Loans: https://fred.stlouisfed.org/series/CCLACBW027SBOG
+Overnight Reverse Repurchase Agreements : 
+https://fred.stlouisfed.org/series/RRPONTSYD
 
-Description: The consumer loans, credit cards, and other revolving plans, all commercial banks provide information on the total loan demands in the market, it shows a similar function as Net Lending or net borrowing, which reflects the market's activity.
+Description: The Overnight Reverse Repurchase Agreements is a transaction in which the New York Fed under the authorization and direction of the Federal Open Market Committee sells a security to an eligible counterparty with an agreement to repurchase that same security at a specified price at a specific time in the future. For these transactions, eligible securities are U.S. Treasury instruments, federal agency debt and the mortgage-backed securities issued or fully guaranteed by federal agencies.
 
-The data is collected by the Fed and the board of governors releases the data on weekly basis. The data has units of billions of dollars and we are preparing to import CSV data downloaded from the link.
+The data is collected by the Fed from bank transactions overnight, it has units in billions of US dollars. 
 
 CPI: https://fred.stlouisfed.org/series/MEDCPIM158SFRBCLE
 
@@ -44,6 +45,6 @@ https://fred.stlouisfed.org/
 https://fred.stlouisfed.org/series/DFF
 https://fred.stlouisfed.org/series/W994RC1Q027SBEA
 https://fred.stlouisfed.org/series/WM2NS
-https://fred.stlouisfed.org/series/CCLACBW027SBOG
+https://fred.stlouisfed.org/series/RRPONTSYD
 https://fred.stlouisfed.org/series/MEDCPIM158SFRBCLE
 
