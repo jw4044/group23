@@ -6,4 +6,4 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
-Discover the relationship between the Federal Funds Effective Rate（also known as the US interest rate), the private sector lending and borrowing amount, M2, consumer loans, and CPI, ranging from 2005 to 2022.
+We are living in a world full of economic indicators, we see the stock market moves up and down daily, the CPI increases every month, etc. As these numbers are closely related to our daily life, I want to discover the relationship among some key indicators on news daily. More specifically the relations among the Federal Funds Effective Rate, Overnight Reverse Repurchase Agreements, 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity, S&P 500, and the Nominal Broad U.S. Dollar Index.  The most important indicator we see every day is the Federal Funds Effective Rate, we will mainly focus on discovering the fluctuation of other indicators based on the up and down of the Federal Funds Effective Rate and try to find the logic behind it. We chose the data from 2017-1-3 to 2022-1-3 for the analysis. 
