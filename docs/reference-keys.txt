@@ -1,11 +1,14 @@
 introduction
 proposal
 research-topic
+data-source
 data-availability
 data
 sources
 cleaning-transformation
 missing-value-analysis
 results
+graphs
+possible-reasons-behind-the-findings
 interactive-component
 conclusion

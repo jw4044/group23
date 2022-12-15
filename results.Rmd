@@ -1,1 +1,208 @@
 # Results
+
+## Graphs
+
+For the results of the analysis, we plotted the trend of each variable to see their pattern through the years and link possible economic situations to it. Then we plotted the ridge plots for each variable to further show their fluctuations each year. We then used a normal Q-Q plot to see if these variables are normally distributed. We then used parallel coordinates plot to take a first look at the relationship among variables, then we used correlation plots, PCA, and Linear regression plots to discover their relationship step by step. Then based on the analysis, we will induct certain logic behind these variables and summarize our findings.
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(ggpubr)
+library(tidyverse)
+library(ggcorrplot)
+library(readr)
+library(ggridges)
+library(lubridate)
+library(ggplot2)
+library(DataExplorer)
+library(GGally)
+library(viridis)
+library(naniar)
+data=read.csv('/Users/jinyuwang/Desktop/FP Data.csv')
+is.na(data) <- data == "#N/A"
+is.na(data) <- data == '.'
+#data cleaning
+data=na.omit(data)
+data$DATE=lubridate::mdy(data$DATE)
+data$DFF=as.numeric(data$DFF)
+data$REPO=as.numeric(data$REPO)
+data$T10Y2Y=as.numeric(data$T10Y2Y)
+data$SP500=as.numeric(data$SP500)
+data$USD=as.numeric(data$USD)
+data$year=year(data$DATE)
+attach(data)
+
+```
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+trendDFF=ggplot(data,aes(x=DATE,y=DFF))+
+  geom_line()+
+  scale_fill_viridis(option = "D")+
+  theme_bw()+
+  labs(y="Federal Funds Effective Rate", x="Date",
+       title="Trend of Federal Funds Effective Rate",subtitle="From 2017-1-3 to 2022-1-3")
+trendREPO=ggplot(data,aes(x=DATE,y=REPO))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="Repo rate", x="Date",
+       title="Trend of Overnight reverse Repo Agreements",subtitle="From 2017-1-3 to 2022-1-3")
+trendT10=ggplot(data,aes(x=DATE,y=T10Y2Y))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="10-Year Treasury Constant Maturity Minus that of 2-Year", x="Date",
+       title="Trend of 10-Year Treasury Constant Maturity Minus that of 2-Year",subtitle="From 2017-1-3 to 2022-1-3")
+trendSP500=ggplot(data,aes(x=DATE,y=SP500))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="S&P500", x="Date",
+       title="Trend of S&P500",subtitle="From 2017-1-3 to 2022-1-3")
+trendUSD=ggplot(data,aes(x=DATE,y=USD))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="USD Index", x="Date",
+       title="Trend of USD Index",subtitle="From 2017-1-3 to 2022-1-3")
+ggarrange(trendDFF,trendREPO,trendT10,trendSP500,trendUSD,ncol=2,nrow=3)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#Ridge plot
+ridgeDFF=ggplot(data)+
+  geom_density_ridges(aes(y=year,x=DFF,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="Federal Funds Effective Rate", y="Year", title="Federal Funds Effective Rate for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ridgeREPO=ggplot(data)+
+  geom_density_ridges(aes(y=year,x=REPO,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="overnight repo rate", y="Year", title="overnight repo rate for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ridget10=ggplot(data)+
+  geom_density_ridges(aes(y=year,x=T10Y2Y,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="10-Year Treasury Constant Maturity Minus that of 2-Year", y="Year", title="10-Year Treasury Constant Maturity Minus that of 2-Year for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ridgesp500=ggplot(data)+
+  geom_density_ridges(aes(y=year,x=SP500,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="S&P500", y="Year", title="S&P500 for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ridgeUSD=ggplot(data)+
+  geom_density_ridges(aes(y=year,x=USD,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="USD Index", y="Year", title="USD Index for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ggarrange(ridgeDFF,ridgeREPO,ridget10,ridgesp500,ridgeUSD,nrow=2,ncol=3)
+```
+
+From the trend graph, we can observe that:
+
+Federal Funds Effective Rate: The DFF increases from 2017 to 2020 and there is a sudden drop in 2020. After 2020, the DFF remains at a relatively lower level.
+
+The Overnight Reverse Repo Agreements: The reverse REPO is the amount of money the Federal Reserve is getting back from the market. From the graph, we can see that the amount in dollars remained low before the year 2021, and starting from 2021, the amount increased tremendously.
+
+10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity: The T10Y2Y showed a round pattern from 2017 to 2022. It decreases from 2017 and started increasing fast since 2021.
+
+SP500: The SP500 in general has a relatively steady increase pattern. It had a sudden decrease in 2020 and quickly recovered and continued increasing.
+
+USD Index: The USD Index has a strong increase in the year 2020 and generally remains on a constant level.
+
+From the economic perspective, if the government starts to print money, then its interest rate will fall, also asset prices will go up. The overall economic activity will increase and more money will be inflow into the stock market. From our observation in the graph, 2020 is an important year, the Federal Reserve Bank started to print money to ease the impact of the pandemic. Therefore, the US interest rate started to decrease as we can see from the DFF's trend. At the same time, the SP500 in 2020 had a strong increase at the roughly same time when the DFF decreases, there might be a correlation between them. Also, we can see that the Reverse Repo Agreements and the DFF have a reverse trend. We will look into their relationship in detail in later graphs.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+DFF=as.numeric(DFF)
+REPO=as.numeric(REPO)
+T10Y2Y=as.numeric(T10Y2Y)
+SP500=as.numeric(SP500)
+USD=as.numeric(USD)
+df=as.data.frame(cbind(DFF,REPO,T10Y2Y,SP500,USD))
+a=ggplot(df,aes(sample=DFF))+
+  stat_qq()+
+  stat_qq_line()+
+  ggtitle('normal qqplot for DFF')+
+  theme(plot.title = element_text(size = 10, face = "bold"))
+b=ggplot(df,aes(sample=T10Y2Y))+
+  stat_qq()+
+  stat_qq_line()+
+  ggtitle('normal qqplot for T10Y2Y')+
+  theme(plot.title = element_text(size = 10, face = "bold"))
+c=ggplot(df,aes(sample=REPO))+
+  stat_qq()+
+  stat_qq_line()+
+  ggtitle('normal qqplot for REPO')+
+  theme(plot.title = element_text(size = 10, face = "bold"))
+d=ggplot(df,aes(sample=SP500))+
+  stat_qq()+
+  stat_qq_line()+
+  ggtitle('normal qqplot for SP500')+
+  theme(plot.title = element_text(size = 10, face = "bold"))
+e=ggplot(df,aes(sample=USD))+
+  stat_qq()+
+  stat_qq_line()+
+  ggtitle('normal qqplot for USD')+
+  theme(plot.title = element_text(size = 10, face = "bold"))
+ggarrange(a,b,c,d,e,ncol=2,nrow=3)
+```
+
+From the above normal QQ plots, we can see that only the USD Index is roughly following the straight line indicating only the USD Index follows the normal distribution.
+
+Then we start looking at the relationship among these variables:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#Correlation 
+matrix=cor(df)
+ggcorrplot(matrix,hc.order = TRUE,outline.col = "white",ggtheme = ggplot2::theme_gray)+
+  ggtitle('Correlation Graph')+
+  scale_color_viridis(option = "D")
+#Parallel Coordinates plot
+ggparcoord(data, columns=2:6, alphaLines = 0.3,
+                   scale="uniminmax",
+                   showPoints=TRUE)+
+scale_color_viridis(discrete=TRUE)+
+labs(title='Parallel Coordinates plot',subtitle="From 2017-1-3 to 2022-1-3") + 
+theme_light()
+```
+
+From the correlation graph, we observe that the 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity has a positive correlation with the Reverse REPO and the SP500, and a negative correlation with DFF and USD. The REPO has a positive correlation with SP500 and a negative correlation with DFF. The SP500 also has a negative correlation with DFF. For USD, we can see that it has a slightly negative relationship with T10T2Y while nearly no correlation with the others.
+
+From the parallel coordinates plot, we find that DFF and REPO have a clear sign of a cross, which confirms our findings in the correlation graph. The REPO and T10Y2Y show more one-direction lines from left to right, which means they are positively correlated, which confirms our conclusion from the correlation graph. We do not see a clear pattern of correlation with T10Y2Y&SP500 and SP500&USD.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(factoextra)
+pca = prcomp(df, scale = TRUE)
+pca$rotation
+(pca$x)[1:2,] # rotated centered data
+r = as.matrix(df)
+(r%*%(pca$rotation))[1:2, ] # rotated data (without centering)
+pca%>%fviz_pca_var(repel = F)
+```
+
+From the principle component biplot, we can see that SP500 and REPO have a positive correlation and are driven by one factor, The DFF is in the other direction with SP500 and REPO which means the DFF has a negative relationship with them. The USD has a 90-degree angle with SP500&REPO and DFF, which indicates it has no relationship with these variables at all, this confirms our findings in the correlation graph. From the PCA plot, we cannot see the relationship between the T10Y2Y and others.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#linear regression
+a1=ggplot(df,aes(DFF,REPO))+
+  geom_point()+
+  geom_smooth(method='lm', se=FALSE, color='turquoise4') +
+  theme_minimal() +
+  labs(x='DFF', y='REPO', title='Linear Regression DFF vs REPO') +
+  theme(plot.title = element_text(hjust=0.5, size=10, face='bold')) 
+b1=ggplot(df,aes(DFF,SP500))+
+  geom_point()+
+  geom_smooth(method='lm', se=FALSE, color='turquoise4') +
+  theme_minimal() +
+  labs(x='DFF', y='SP500', title='Linear Regression DFF vs SP500') +
+  theme(plot.title = element_text(hjust=0.5, size=10, face='bold')) 
+ggarrange(a1,b1,ncol=2,nrow=1)
+```
+
+Finally, the linear regression graph trip confirms the relationship between DFF and REPO, DFF, and SP500 as they all show a downward slope.
+
+## Possible Reasons behind the findings
+
+By combining the economic theory and the above relationship we found, the inducted explanation behind the above relations is the following:
+
+DFF & Overnight Reverse Repo Agreements: The DFF and Reverse REPO are all decided by the Federal Reserve Bank, the lower DFF(US interest rate) means to provide the market with liquidity. The increase in Reverse REPO is an action to get money back from the market, which is an action to decrease liquidity. Therefore the above two variables have a negative correlation since they work in opposite directions.
+
+DFF & SP500: The decrease of the US interest rate(DFF) will provide the market with liquidity, especially in 2020 when we see people losing their jobs, and companies at the edge of bankruptcy, the FED lowered the interest rate and provided the market with liquidity. People get covid payments, companies could easily get loans with almost 0 interest rates to keep in business. My induction on the increase of SP500 when interest rate decreases are that, not all companies and families are going to bankruptcy at that time. There are a large of amount of people and companies who received benefits from the Fed's low-interest rate and invested the money they got into the stock market. Therefore the SP500 increased sharply when the interest rate decreased sharply.
+
+DFF and 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity: A possible reason why these two have a negative correlation is that, when the DFF decreases, as the stock market(SP500, NASDAQ) blooms strongly, people tend to invest in the short-term for the quick and higher return. When the interest rate starts to increase again, money will flow back to the FED from the market and the blooming of the stock market may stop, therefore people will rather invest in long-term assets.
+
+In the end, the FED is increasing the Federal Funds Effective Rate recently, and therefore we may see the SP500 go down and the spread between the 10-Year Treasury Constant Maturity and 2-Year Treasury Constant Maturity goes wider. People and the capital markets may see the short-term economy negatively and choose to invest in long-term assets for stability.

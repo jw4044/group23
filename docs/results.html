@@ -23,7 +23,7 @@
 <meta name="author" content="Jinyu Wang and Shuai Yuan" />
 
 
-<meta name="date" content="2022-12-13" />
+<meta name="date" content="2022-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +76,8 @@
 <li class="chapter" data-level="2" data-path="proposal.html"><a href="proposal.html"><i class="fa fa-check"></i><b>2</b> Proposal</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research topic</a></li>
-<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data availability</a></li>
+<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-source"><i class="fa fa-check"></i><b>2.2</b> Data Source</a></li>
+<li class="chapter" data-level="2.3" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.3</b> Data availability</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
@@ -84,7 +85,11 @@
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#graphs"><i class="fa fa-check"></i><b>4.1</b> Graphs</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#possible-reasons-behind-the-findings"><i class="fa fa-check"></i><b>4.2</b> Possible Reasons behind the findings</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -108,7 +113,50 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="graphs" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Graphs<a href="results.html#graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For the results of the analysis, we plotted the trend of each variable to see their pattern through the years and link possible economic situations to it. Then we plotted the ridge plots for each variable to further show their fluctuations each year. We then used a normal Q-Q plot to see if these variables are normally distributed. We then used parallel coordinates plot to take a first look at the relationship among variables, then we used correlation plots, PCA, and Linear regression plots to discover their relationship step by step. Then based on the analysis, we will induct certain logic behind these variables and summarize our findings.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>From the trend graph, we can observe that:</p>
+<p>Federal Funds Effective Rate: The DFF increases from 2017 to 2020 and there is a sudden drop in 2020. After 2020, the DFF remains at a relatively lower level.</p>
+<p>The Overnight Reverse Repo Agreements: The reverse REPO is the amount of money the Federal Reserve is getting back from the market. From the graph, we can see that the amount in dollars remained low before the year 2021, and starting from 2021, the amount increased tremendously.</p>
+<p>10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity: The T10Y2Y showed a round pattern from 2017 to 2022. It decreases from 2017 and started increasing fast since 2021.</p>
+<p>SP500: The SP500 in general has a relatively steady increase pattern. It had a sudden decrease in 2020 and quickly recovered and continued increasing.</p>
+<p>USD Index: The USD Index has a strong increase in the year 2020 and generally remains on a constant level.</p>
+<p>From the economic perspective, if the government starts to print money, then its interest rate will fall, also asset prices will go up. The overall economic activity will increase and more money will be inflow into the stock market. From our observation in the graph, 2020 is an important year, the Federal Reserve Bank started to print money to ease the impact of the pandemic. Therefore, the US interest rate started to decrease as we can see from the DFF’s trend. At the same time, the SP500 in 2020 had a strong increase at the roughly same time when the DFF decreases, there might be a correlation between them. Also, we can see that the Reverse Repo Agreements and the DFF have a reverse trend. We will look into their relationship in detail in later graphs.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>From the above normal QQ plots, we can see that only the USD Index is roughly following the straight line indicating only the USD Index follows the normal distribution.</p>
+<p>Then we start looking at the relationship among these variables:</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p>From the correlation graph, we observe that the 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity has a positive correlation with the Reverse REPO and the SP500, and a negative correlation with DFF and USD. The REPO has a positive correlation with SP500 and a negative correlation with DFF. The SP500 also has a negative correlation with DFF. For USD, we can see that it has a slightly negative relationship with T10T2Y while nearly no correlation with the others.</p>
+<p>From the parallel coordinates plot, we find that DFF and REPO have a clear sign of a cross, which confirms our findings in the correlation graph. The REPO and T10Y2Y show more one-direction lines from left to right, which means they are positively correlated, which confirms our conclusion from the correlation graph. We do not see a clear pattern of correlation with T10Y2Y&amp;SP500 and SP500&amp;USD.</p>
+<pre><code>##                PC1         PC2        PC3        PC4        PC5
+## DFF     0.51349976 -0.18383927  0.5051980 -0.2010483  0.6378681
+## REPO   -0.47835577  0.08758334  0.5631093 -0.6261887 -0.2330247
+## T10Y2Y -0.49871729 -0.28810356 -0.4705739 -0.3040259  0.5953199
+## SP500  -0.50297351  0.15432971  0.4210722  0.6635186  0.3250250
+## USD     0.07610828  0.92288188 -0.1701212 -0.1864902  0.2806720</code></pre>
+<pre><code>##             PC1       PC2       PC3       PC4       PC5
+## [1,] -0.3491305 0.8175879 -1.571887 -1.647676 0.4761562
+## [2,] -0.3259571 0.7650869 -1.571491 -1.582256 0.4626752</code></pre>
+<pre><code>##            PC1      PC2      PC3      PC4     PC5
+## [1,] -1264.241 483.0359 1091.950 1295.533 701.496
+## [2,] -1260.815 483.0203 1085.736 1317.152 710.470</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>From the principle component biplot, we can see that SP500 and REPO have a positive correlation and are driven by one factor, The DFF is in the other direction with SP500 and REPO which means the DFF has a negative relationship with them. The USD has a 90-degree angle with SP500&amp;REPO and DFF, which indicates it has no relationship with these variables at all, this confirms our findings in the correlation graph. From the PCA plot, we cannot see the relationship between the T10Y2Y and others.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Finally, the linear regression graph trip confirms the relationship between DFF and REPO, DFF, and SP500 as they all show a downward slope.</p>
+</div>
+<div id="possible-reasons-behind-the-findings" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Possible Reasons behind the findings<a href="results.html#possible-reasons-behind-the-findings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By combining the economic theory and the above relationship we found, the inducted explanation behind the above relations is the following:</p>
+<p>DFF &amp; Overnight Reverse Repo Agreements: The DFF and Reverse REPO are all decided by the Federal Reserve Bank, the lower DFF(US interest rate) means to provide the market with liquidity. The increase in Reverse REPO is an action to get money back from the market, which is an action to decrease liquidity. Therefore the above two variables have a negative correlation since they work in opposite directions.</p>
+<p>DFF &amp; SP500: The decrease of the US interest rate(DFF) will provide the market with liquidity, especially in 2020 when we see people losing their jobs, and companies at the edge of bankruptcy, the FED lowered the interest rate and provided the market with liquidity. People get covid payments, companies could easily get loans with almost 0 interest rates to keep in business. My induction on the increase of SP500 when interest rate decreases are that, not all companies and families are going to bankruptcy at that time. There are a large of amount of people and companies who received benefits from the Fed’s low-interest rate and invested the money they got into the stock market. Therefore the SP500 increased sharply when the interest rate decreased sharply.</p>
+<p>DFF and 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity: A possible reason why these two have a negative correlation is that, when the DFF decreases, as the stock market(SP500, NASDAQ) blooms strongly, people tend to invest in the short-term for the quick and higher return. When the interest rate starts to increase again, money will flow back to the FED from the market and the blooming of the stock market may stop, therefore people will rather invest in long-term assets.</p>
+<p>In the end, the FED is increasing the Federal Funds Effective Rate recently, and therefore we may see the SP500 go down and the spread between the 10-Year Treasury Constant Maturity and 2-Year Treasury Constant Maturity goes wider. People and the capital markets may see the short-term economy negatively and choose to invest in long-term assets for stability.</p>
 
+</div>
 </div>
             </section>
 
