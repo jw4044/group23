@@ -21,7 +21,7 @@ library(DataExplorer)
 library(GGally)
 library(viridis)
 library(naniar)
-data=read.csv('/Users/jinyuwang/Desktop/FP Data.csv')
+data=read.csv('FP Data.csv')
 is.na(data) <- data == "#N/A"
 is.na(data) <- data == '.'
 plot_missing(data, title="Missing Value in Data")

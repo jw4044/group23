@@ -1,3 +1,157 @@
 # Interactive component
 
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+library(readr)
+library(ggplot2)
+library(ggridges)
+library(lubridate)
+library(DataExplorer)
+library(GGally)
+library(viridis)
+library(naniar)
+#
+#Import data
+FP_data <- read_csv("FP Data.csv")
+#
+#Data cleaning
+is.na(FP_data)=FP_data=="#N/A"
+is.na(FP_data)=FP_data=="."
+data=na.omit(FP_data)
+data$DATE=lubridate::mdy(data$DATE)
+data$DFF=as.numeric(data$DFF)
+data$REPO=as.numeric(data$REPO)
+data$T10Y2Y=as.numeric(data$T10Y2Y)
+data$SP500=as.numeric(data$SP500)
+data$USD=as.numeric(data$USD)
+data$year=year(data$DATE)
+#
+#Missing Value
+plot_missing(FP_data, title="Missing Value in Data")
+vis_miss(FP_data)
+gg_miss_upset(FP_data)
+#
+#Trends 
+ggplot(data,aes(x=DATE,y=DFF))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="Federal Funds Effective Rate", x="Date",
+       title="Trend of Federal Funds Effective Rate",subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data,aes(x=DATE,y=REPO))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="Private Sector Lending and Borrowing Amount", x="Date",
+       title="Trend of Private Sector Lending and Borrowing Amount",subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data,aes(x=DATE,y=T10Y2Y))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="10-Year Treasury Constant Maturity Minus that of 2-Year", x="Date",
+       title="Trend of 10-Year Treasury Constant Maturity Minus that of 2-Year",subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data,aes(x=DATE,y=SP500))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="S&P500", x="Date",
+       title="Trend of S&P500",subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data,aes(x=DATE,y=USD))+
+  geom_line()+
+  scale_color_viridis(option = "D")+
+  labs(y="USD Index", x="Date",
+       title="Trend of USD Index",subtitle="From 2017-1-3 to 2022-1-3")
+#
+#Ridge plot
+ggplot(data)+
+  geom_density_ridges(aes(y=year,x=DFF,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="Federal Funds Effective Rate", y="Year", title="Federal Funds Effective Rate for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data)+
+  geom_density_ridges(aes(y=year,x=REPO,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="Private Sector Lending and Borrowing Amount", y="Year", title="Private Sector Lending&Borrowing Amount for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data)+
+  geom_density_ridges(aes(y=year,x=T10Y2Y,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="10-Year Treasury Constant Maturity Minus that of 2-Year", y="Year", title="10-Year Treasury Constant Maturity Minus that of 2-Year for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data)+
+  geom_density_ridges(aes(y=year,x=SP500,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="S&P500", y="Year", title="S&P500 for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+ggplot(data)+
+  geom_density_ridges(aes(y=year,x=USD,group=as.factor(year)),fill="lightblue",
+                      quantile_lines=TRUE,quantiles = c(0.5),alpha = 0.5)+
+  labs(x="USD Index", y="Year", title="USD Index for Each Year",
+       subtitle="From 2017-1-3 to 2022-1-3")
+#
+#Parallel Coordinates plot
+GGally::ggparcoord(data,
+                   columns=2:6, alphaLines = 0.3,
+                   scale="uniminmax",
+                   showPoints=TRUE)+
+  scale_color_viridis(option = "D")+
+  labs(title='Parallel Coordinates plot',subtitle="From 2017-1-3 to 2022-1-3")+
+  theme_light()
+#
+#D3
+library(shiny)
+ui <- fluidPage(
+  titlePanel("Regression results for three different variables"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(inputId = "Variable",
+                  label = "Remove a variable",
+                  choices=c("T10T2Y","REPO","SP500","USD"))
+    ),
+    mainPanel(
+      plotOutput(outputId = "RegPlot")
+    )
+  )
+)
 
+server <- function(input, output) {
+  output$RegPlot <- renderPlot({
+    if(input$Variable=="T10T2Y"){
+      a=data[,-4]
+      names(a)[2]="y"
+      names(a)[3]="x1"
+      names(a)[4]="x2"
+      names(a)[5]="x3"
+      rg_a=lm(y~x1+x2+x3,a)
+      p_a=plot(rg_a)
+      print(p_a)
+    }
+    if(input$Variable=="REPO"){
+      b=data[,-3]
+      names(b)[2]="y"
+      names(b)[3]="x1"
+      names(b)[4]="x2"
+      names(b)[5]="x3"
+      rg_b=lm(y~x1+x2+x3,b)
+      p_b=plot(rg_b)
+      print(p_b)
+    }
+    if(input$Variable=="SP500"){
+      c=data[,-5]
+      names(c)[2]="y"
+      names(c)[3]="x1"
+      names(c)[4]="x2"
+      names(c)[5]="x3"
+      rg_c=lm(y~x1+x2+x3,c)
+      p_c=plot(rg_c)
+      print(p_c)
+    }
+    if(input$Variable=="USD"){
+      d=data[,-6]
+      names(d)[2]="y"
+      names(d)[3]="x1"
+      names(d)[4]="x2"
+      names(d)[5]="x3"
+      rg_d=lm(y~x1+x2+x3,d)
+      p_d=plot(rg_d)
+      print(p_d)
+    }
+  })
+}
+shinyApp(ui = ui, server = server)
+```
